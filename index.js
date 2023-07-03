@@ -37,6 +37,32 @@ function isPrimitive(value) {
   );
 }
 
+function addRaceContender(contender) {
+  const deferreds = new Set();
+  const record = {deferreds, settled: false};
+
+  // This call to `then` happens once for the lifetime of the value.
+  Promise.resolve(contender).then(
+    (value) => {
+      for (const {resolve} of deferreds) {
+        resolve(value);
+      }
+
+      deferreds.clear();
+      record.settled = true;
+    },
+    (err) => {
+      for (const {reject} of deferreds) {
+        reject(err);
+      }
+
+      deferreds.clear();
+      record.settled = true;
+    },
+  );
+  return record
+}
+
 // Keys are the values passed to race, values are a record of data containing a
 // set of deferreds and whether the value has settled.
 /** @type {WeakMap<object, {deferreds: Set<Deferred>, settled: boolean}>} */
@@ -57,27 +83,9 @@ function safeRace(contenders) {
 
       let record = wm.get(contender);
       if (record === undefined) {
-        record = {deferreds: new Set([deferred]), settled: false};
+        record = addRaceContender(contender);
+        record.deferreds.add(deferred);
         wm.set(contender, record);
-        // This call to `then` happens once for the lifetime of the value.
-        Promise.resolve(contender).then(
-          (value) => {
-            for (const {resolve} of record.deferreds) {
-              resolve(value);
-            }
-
-            record.deferreds.clear();
-            record.settled = true;
-          },
-          (err) => {
-            for (const {reject} of record.deferreds) {
-              reject(err);
-            }
-
-            record.deferreds.clear();
-            record.settled = true;
-          },
-        );
       } else if (record.settled) {
         // If the value has settled, it is safe to call
         // `Promise.resolve(contender).then` on it.

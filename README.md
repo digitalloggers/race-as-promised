@@ -30,6 +30,10 @@ The source code and test core [have been made available under The
 Unlicense](https://github.com/nodejs/node/issues/17469#issuecomment-776343813)
 by [Brian Kim](https://github.com/brainkim), to whom we owe our gratitude.
 
+An additional issue in the original code has been found and fixed by
+[Dan Bornstein](https://github.com/danfuzz), whose efforts are
+likewise appreciated.
+
 ## License
 
 [The Unlicense](https://spdx.org/licenses/Unlicense.html)

@@ -1,12 +1,12 @@
 # race-as-promised
 
-This module implements Promise.race() in a way that does not leak
+This module implements `Promise.race()` in a way that does not leak
 memory.
 
 ## Rationale
 
 The V8 Promise implementation does leak memory in many common
-Promise.race([...]) call cases; see
+`Promise.race([...])` call cases; see
 e.g. https://github.com/nodejs/node/issues/17469.
 
 The V8 Promise implementation is likely [not going to be
@@ -16,13 +16,17 @@ See also: https://bugs.chromium.org/p/v8/issues/detail?id=9858
 
 ## Installation
 
-    npm install race-as-promised
+```bash
+npm install race-as-promised
+```
 
 ## Usage
 
-    const race = require ("race-as-promised");
+```js
+const race = require ("race-as-promised");
 
-    // Use race([...]) instead of Promise.race([...])
+// Use race([...]) instead of Promise.race([...])
+```
 
 ## Author
 

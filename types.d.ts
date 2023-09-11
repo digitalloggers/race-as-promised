@@ -1,0 +1,1 @@
+export default function race<T extends readonly unknown[] | []>(values: T): Promise<Awaited<T[number]>>;

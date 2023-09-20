@@ -1,6 +1,6 @@
 {
   "name": "race-as-promised",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Alternate Promise.race() implementation which doesn't leak memory, courtesy Brian Kim (https://github.com/brainkim)",
   "main": "index.js",
   "types": "types.d.ts",

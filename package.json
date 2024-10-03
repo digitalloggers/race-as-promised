@@ -2,13 +2,24 @@
   "name": "race-as-promised",
   "version": "0.0.3",
   "description": "Alternate Promise.race() implementation which doesn't leak memory, courtesy Brian Kim (https://github.com/brainkim)",
-  "main": "index.js",
-  "types": "types.d.ts",
+  "main": "index.cjs.js",
+  "module": "index.esm.js",
+  "types": "index.d.ts",
   "files": [
-    "index.js",
-    "types.d.ts"
+    "index.cjs.js",
+    "index.esm.js",
+    "index.d.ts"
   ],
+  "exports": {
+    ".": {
+      "import": "./index.esm.js",
+      "require": "./index.cjs.js",
+      "types": "./index.d.ts"
+    }
+  },
   "scripts": {
+    "build": "node build-modules.js",
+    "prepare": "node build-modules.js",
     "test": "node test.js"
   },
   "repository": {

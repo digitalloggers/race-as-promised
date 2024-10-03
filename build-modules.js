@@ -1,0 +1,6 @@
+var fs = require('fs')
+var source = fs.readFileSync('index.js').toString()
+fs.writeFileSync('index.cjs.js', source + '\nmodule.exports = safeRace\n')
+fs.accessSync('index.cjs.js')
+fs.writeFileSync('index.esm.js', source + '\nexport default safeRace\n')
+fs.accessSync('index.esm.js')

@@ -4,6 +4,10 @@
   "description": "Alternate Promise.race() implementation which doesn't leak memory, courtesy Brian Kim (https://github.com/brainkim)",
   "main": "index.js",
   "types": "types.d.ts",
+  "files": [
+    "index.js",
+    "types.d.ts"
+  ],
   "scripts": {
     "test": "node test.js"
   },

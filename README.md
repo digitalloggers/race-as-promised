@@ -3,14 +3,26 @@
 This module implements `Promise.race()` in a way that does not leak
 memory.
 
+*Note that you might not need this package; see below.*
+
 ## Rationale
 
-The V8 Promise implementation does leak memory in many common
+The V8 Promise implementation used to leak memory in many common
 `Promise.race([...])` call cases; see
 e.g. https://github.com/nodejs/node/issues/17469.
 
-The V8 Promise implementation is likely [not going to be
-fixed](https://github.com/nodejs/node/issues/17469#issuecomment-349794909).
+The V8 Promise implementation has
+[recently](https://github.com/nodejs/node/issues/17469#issuecomment-4916015158)
+been [fixed](https://github.com/nodejs/node/pull/64101). If you target
+Node versions 26.5.0 and above, or Chromium 151 and above, the native
+implementation has the fix so this package is not needed.
+
+Note that the "native Promise.race" test errors out in such newer
+environments, indicating absence of memory leak.
+
+Older Node/Chromium versions, and
+[Safari](https://bugs.webkit.org/show_bug.cgi?id=313787), may serve as
+examples of environments that still need the package.
 
 See also: https://bugs.chromium.org/p/v8/issues/detail?id=9858
 
